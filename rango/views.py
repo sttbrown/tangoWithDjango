@@ -8,8 +8,10 @@ from rango.models import Page
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
 
+    viewed_list = Page.objects.order_by('-views')[:5]
+
+    context_dict = {'categories': category_list, 'viewed': viewed_list}
 
     #return HttpResponse("Rango says give me a biscuit <br/> <a href='/rango/about/'>About</a>")
     return render(request, 'rango/index.html', context=context_dict)
@@ -30,6 +32,11 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = pages
 
         context_dict['category'] = category
+
+        #maybe
+       # context_dict['likes'] = likes
+
+
     except Category.DoesNotExist:
         context_dict['category']= None
         context_dict['pages']= None

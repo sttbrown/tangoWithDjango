@@ -31,6 +31,23 @@
         </div>
 
         <div>
+            Most Viewed Pages
+        </div>
+        <div>
+            {% if viewed %}
+             <ul>
+                {% for page in viewed %}
+                 <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                    {% endfor %}
+                 </ul>
+            {% else %}
+                <strong>No pages </strong>
+            {% endif %}
+        </div>
+
+
+
+        <div>
             <a href="/rango/about/">About</a><br />
             <img src="{% static "images/rango1.jpg" %}"
             alt = "rangoBanjo" />

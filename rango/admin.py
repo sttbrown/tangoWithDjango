@@ -7,7 +7,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class PageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'url')
+    list_display = ('title', 'category', 'url', 'views')
 
 
 admin.site.register(Page, PageAdmin)
