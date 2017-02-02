@@ -11,9 +11,9 @@ from rango.forms import CategoryForm
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
 
-    viewed_list = Page.objects.order_by('-views')[:5]
+    page_list = Page.objects.order_by('-views')[:5]
 
-    context_dict = {'categories': category_list, 'viewed': viewed_list}
+    context_dict = {'categories': category_list, 'pages': page_list}
 
     #return HttpResponse("Rango says give me a biscuit <br/> <a href='/rango/about/'>About</a>")
     return render(request, 'rango/index.html', context=context_dict)
