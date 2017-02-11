@@ -16,6 +16,11 @@ urlpatterns = [
 
     url(r'^register/$', views.register,
         name='register'),
+
     url(r'^login/$', views.user_login, name='login'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    url(r'^logout/$', views.user_logout, name= 'logout'),
+
+    url(r'^restricted/', views.restricted, name='restricted'),
+    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

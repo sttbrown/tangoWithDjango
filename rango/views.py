@@ -1,9 +1,12 @@
 from django.shortcuts import render
 
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+
+from django.contrib.auth import logout
 
 from rango.models import Category
 
@@ -19,7 +22,9 @@ from rango.forms import PageForm
 
 
 
+
 def index(request):
+    request.session.set_test_cookie()
     category_list = Category.objects.order_by('-likes')[:5]
 
     page_list = Page.objects.order_by('-views')[:5]
@@ -30,6 +35,9 @@ def index(request):
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
+    if request.session.test_cookie_worked():
+        print("TEST COOKIE WORKED!")
+        request.session.delete_test_cookie()
     #return HttpResponse("This is the about page <br/> <a href='/rango/'>Home</a>")
     print(request.method)
     print(request.user)
@@ -151,6 +159,20 @@ def user_login(request):
 
     else:
         return render(request, 'rango/login.html',{})
+
+
+@login_required
+def restricted(request):
+        return render(request, 'rango/restricted.html',{})
+
+ #return render(request, 'rango/about.html', {})
+#return HttpResponse("Since you're logged in, you can see this text!")
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
 
 
 
