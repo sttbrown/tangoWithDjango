@@ -22,7 +22,9 @@ def index(request):
 
 def about(request):
     #return HttpResponse("This is the about page <br/> <a href='/rango/'>Home</a>")
-    return render(request, 'rango/about.html')
+    print(request.method)
+    print(request.user)
+    return render(request, 'rango/about.html', {})
 
 
 def show_category(request, category_name_slug):
